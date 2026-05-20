@@ -1,10 +1,11 @@
-use v5.16;
+use v5.24;
 use warnings;
+use experimental qw(lexical_subs signatures);
 
 use Test::More;
 use Distribution::Metadata::Factory;
 
-subtest not_found => sub {
+subtest not_found => sub (@) {
     my $f = Distribution::Metadata::Factory->new;
     my $info1 = $f->create_from_module("HogeHogeFooBar");
     isa_ok $info1, "Distribution::Metadata";
@@ -15,7 +16,7 @@ subtest not_found => sub {
     is $info2->packlist, undef;
 };
 
-subtest core_module => sub {
+subtest core_module => sub (@) {
     my $f = Distribution::Metadata::Factory->new;
     my $info = $f->create_from_module("FindBin");
     is $info->main_module, "perl";

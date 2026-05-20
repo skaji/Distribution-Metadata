@@ -1,5 +1,6 @@
-use v5.16;
+use v5.24;
 use warnings;
+use experimental qw(lexical_subs signatures);
 
 use Test::More;
 use Distribution::Metadata;
