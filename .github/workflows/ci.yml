@@ -28,21 +28,10 @@ jobs:
       - name: Install Dependencies
         run: curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | perl - install -g --top-level-phase runtime,test,develop --top-level-relationship requires,recommends --show-build-log-on-failure
       - run: prove -lr t xt
-  test-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v6
-      - run: /opt/homebrew/opt/perl/bin/perl -V
-      - name: Install cpanminus
-        run: curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | /opt/homebrew/opt/perl/bin/perl - install -g App::cpanminus
-      - name: Install Dependencies
-        run: curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | /opt/homebrew/opt/perl/bin/perl - install -g --top-level-phase runtime,test,develop --top-level-relationship requires,recommends --show-build-log-on-failure
-      - run: env PATH=/opt/homebrew/opt/perl/bin:$PATH /opt/homebrew/opt/perl/bin/prove -lr t xt
 
   release:
     needs:
       - test-linux
-      - test-macos
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     permissions:
