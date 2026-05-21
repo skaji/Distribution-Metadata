@@ -34,8 +34,7 @@ my @prereq = (
         'ExtUtils::Packlist' => '0',
         'JSON' => '0',
         'Module::Metadata' => '0',
-        'perl' => '0',
-        'v5.24' => '0',
+        'perl' => 'v5.24',
     ],
     [ Prereqs => 'DevelopRequires' ] => [
         'File::pushd' => '0',
