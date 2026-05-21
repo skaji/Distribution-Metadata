@@ -1,10 +1,11 @@
-use v5.16;
+use v5.24;
 use warnings;
+use experimental qw(lexical_subs signatures);
 
 use Test::More;
 use File::Temp 'tempdir';
 use Cwd 'abs_path';
-sub cpanm { !system "cpanm", "-nq", "--reinstall", @_ or die "cpanm fail"; }
+sub cpanm (@args) { !system "cpanm", "-nq", "--reinstall", @args or die "cpanm fail"; }
 
 use Distribution::Metadata::Factory;
 

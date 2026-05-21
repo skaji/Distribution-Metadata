@@ -1,5 +1,6 @@
-use v5.16;
+use v5.24;
 use warnings;
+use experimental qw(lexical_subs signatures);
 
 use Test::More;
 use Distribution::Metadata;
@@ -9,9 +10,9 @@ use File::Find 'find';
 use File::Basename 'basename';
 use File::pushd 'tempd';
 use File::Spec;
-sub cpanm { !system "cpanm", "-nq", "--reinstall", @_ or die "cpanm fail"; }
+sub cpanm (@args) { !system "cpanm", "-nq", "--reinstall", @args or die "cpanm fail"; }
 
-subtest basic => sub {
+subtest basic => sub (@) {
     my $tempdir = tempdir CLEANUP => 1;
     cpanm "-l$tempdir/local", 'TOKUHIROM/Test-TCP-2.07.tar.gz';
     my $info1 = Distribution::Metadata->new_from_module(
@@ -40,7 +41,7 @@ subtest basic => sub {
     is $info1->author, 'TOKUHIROM';
 };
 
-subtest prefer => sub {
+subtest prefer => sub (@) {
     my $tempdir = tempdir CLEANUP => 1;
     cpanm "-l$tempdir/local2.07", 'TOKUHIROM/Test-TCP-2.07.tar.gz';
     cpanm "-l$tempdir/local2.06", 'TOKUHIROM/Test-TCP-2.06.tar.gz';
@@ -55,7 +56,7 @@ subtest prefer => sub {
     is $info->install_json_hash->{version}, '2.06';
 };
 
-subtest abs_path => sub {
+subtest abs_path => sub (@) {
     my $tempdir = tempd;
     cpanm "-llocal", 'TOKUHIROM/Test-TCP-2.07.tar.gz';
     my $info = Distribution::Metadata->new_from_module(
@@ -71,7 +72,7 @@ subtest abs_path => sub {
     }
 };
 
-subtest archlib => sub {
+subtest archlib => sub (@) {
     my $tempdir = tempdir CLEANUP => 1;
     cpanm "-l$tempdir/local", 'common::sense@3.74';
     my $info1 = Distribution::Metadata->new_from_module(

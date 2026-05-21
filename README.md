@@ -1,5 +1,3 @@
-[![Actions Status](https://github.com/skaji/Distribution-Metadata/actions/workflows/test.yml/badge.svg)](https://github.com/skaji/Distribution-Metadata/actions)
-
 # NAME
 
 Distribution::Metadata - gather distribution metadata in local
@@ -189,6 +187,13 @@ when appropriate modules or files cannot be found.
 [Module::Metadata](https://metacpan.org/pod/Module%3A%3AMetadata)
 
 [App::cpanminus](https://metacpan.org/pod/App%3A%3Acpanminus)
+
+# ARTIFACT ATTESTATIONS
+
+GitHub Artifact Attestations are generated for release tarballs uploaded to
+CPAN. If you care about provenance for the uploaded tarballs, see:
+
+[https://github.com/skaji/Distribution-Metadata/attestations](https://github.com/skaji/Distribution-Metadata/attestations)
 
 # COPYRIGHT AND LICENSE
 
