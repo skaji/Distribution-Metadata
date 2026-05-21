@@ -32,12 +32,12 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
-      - run: /usr/bin/perl -V
+      - run: /opt/homebrew/opt/perl/bin/perl -V
       - name: Install cpanminus
-        run: curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | sudo -H /usr/bin/perl - install -g App::cpanminus
+        run: curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | /opt/homebrew/opt/perl/bin/perl - install -g App::cpanminus
       - name: Install Dependencies
-        run: curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | sudo -H /usr/bin/perl - install -g --top-level-phase runtime,test,develop --top-level-relationship requires,recommends --show-build-log-on-failure
-      - run: /usr/bin/prove -lr t xt
+        run: curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | /opt/homebrew/opt/perl/bin/perl - install -g --top-level-phase runtime,test,develop --top-level-relationship requires,recommends --show-build-log-on-failure
+      - run: env PATH=/opt/homebrew/opt/perl/bin:$PATH /opt/homebrew/opt/perl/bin/prove -lr t xt
 
   release:
     needs:
